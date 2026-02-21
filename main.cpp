@@ -6,7 +6,7 @@
 /*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 19:24:44 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/02/20 19:53:59 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/02/21 23:34:57 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ int main() {
 	// No llamamos a addHeader("Content-Length", ...)
 
 	std::cout << testLen.toString() << std::endl;
+
+    std::cout << "--- PRUEBA 4: Cargando archivo HTML real ---" << std::endl;
+    HttpResponse res1;
+    res1.loadFile("hola.html"); 
+    std::cout << res1.toString() << std::endl;
+
+    std::cout << "--- PRUEBA 5: Cargando archivo de texto ---" << std::endl;
+    HttpResponse res2;
+    res2.loadFile("info.txt");
+    std::cout << res2.toString() << std::endl;
+
+    std::cout << "--- PRUEBA 6: Intentando cargar archivo inexistente ---" << std::endl;
+    HttpResponse res3;
+    res3.loadFile("archivo_fantasma.html");
+    std::cout << res3.toString() << std::endl;
 
     return 0;
 }
