@@ -6,7 +6,7 @@
 /*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:48:49 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/02/21 23:31:32 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:25:13 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,12 @@ std::string HttpResponse::toString() const
 		response << it->first << ": " << it->second << "\r\n";
 	response << "\r\n" << body;
 	return response.str();
+}
+
+void HttpResponse::clear()
+{
+	version = "HTTP/1.1";
+	statusCode = 200;
+	body.clear();
+	headers.clear();
 }

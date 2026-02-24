@@ -6,7 +6,7 @@
 /*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:48:43 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/02/21 23:18:46 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:25:01 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ public:
 
 	//method to convert response to string format
 	std::string toString() const;
+
+	//method to reset response to default state
+	void clear();
 };
 
 #endif 

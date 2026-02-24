@@ -6,7 +6,7 @@
 /*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 19:24:44 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/02/21 23:34:57 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:32:28 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ int main() {
     HttpResponse res3;
     res3.loadFile("archivo_fantasma.html");
     std::cout << res3.toString() << std::endl;
+
+    std::cout << "--- PRUEBA 7: Reutilización de objeto ---" << std::endl;
+    HttpResponse res; // Creamos UN solo objeto
+
+    // Cliente 1
+    res.loadFile("hola.html");
+    std::cout << "Respuesta 1 enviada." << std::endl;
+    res.clear(); // <--- ¡Limpiamos!
+
+    // Cliente 2
+    res.setStatusCode(403);
+    res.setBody("Acceso denegado");
+    std::cout << res.toString() << std::endl;
 
     return 0;
 }
