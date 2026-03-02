@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HttpResponse.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: kpineda- <kpineda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:48:43 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/03/02 16:48:12 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/03/02 22:05:29 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include <sstream>
-# include <string>
 # include <fstream>
+# include <string>
+# include <dirent.h>
 # include <map>
 
 class HttpResponse
@@ -50,6 +51,9 @@ public:
 
 	// File loading method
 	void loadFile(const std::string& path);
+
+	// Generate AutoIndex
+	std::string generateAutoIndex(const std::string& path);
 
 	//method to convert response to string format
 	std::string toString() const;

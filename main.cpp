@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: kpineda- <kpineda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 19:24:44 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/03/02 16:30:50 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/03/02 22:26:59 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,12 @@ int main() {
 
     std::cout << "--- PRUEBA 8: Probando Directorio ---" << std::endl;
     HttpResponse resDir;
-    // Asegúrate de que la carpeta "test_folder" existe en tu terminal (mkdir test_folder)
     resDir.loadFile("test_folder"); 
     std::cout << resDir.toString() << std::endl; 
 
+	 std::cout << "--- PRUEBA 9: Probando AutoIndex ---" << std::endl;
+    HttpResponse resDir1;
+    resDir1.loadFile("fotos"); 
+    std::cout << resDir1.toString() << std::endl; 
     return 0;
 }

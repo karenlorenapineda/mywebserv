@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HttpResponse.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: kpineda- <kpineda-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 13:48:49 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/03/02 16:57:31 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/03/02 22:33:56 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,39 @@ std::string HttpResponse::toLower(std::string s)
 	return s;
 }
 
+std::string HttpResponse::generateAutoIndex(const std::string& path)
+{
+	DIR* dir;
+	struct dirent* entry;
+	std::stringstream html;
+
+	html << "<html><head><title>Index of " << path << "</title></head><body>";
+	html << "<h1>Index of " << path << "</h1><hr><ul>";
+
+	if ((dir = opendir(path.c_str())) != NULL)
+	{
+		while ((entry = readdir(dir)) != NULL)
+		{
+			std::string name = entry->d_name;
+			if (name == ".") continue;
+
+			if (name[0] == '.' && name != "..") continue;
+			
+			html << "<li><a href=\"" << name;
+
+			if (name == ".." || entry->d_type == DT_DIR)
+				html <<"/";
+				
+			html << "\">" << name << "</a></li>";
+		}
+		closedir(dir);
+	}
+	else
+		return "<html><body><h1>Error al leer el directorio</h1></body></html>";
+	html << "</ul><hr></body></html>";
+	return html.str();	
+}
+
 void HttpResponse::loadFile(const std::string& path)
 {
 	struct stat path_stat;
@@ -100,13 +133,13 @@ void HttpResponse::loadFile(const std::string& path)
 	// Is it a directory?
 	if (S_ISDIR(path_stat.st_mode))
 	{
-		setStatusCode(403);
-		setBody("<html><body><h1>403 Forbidden</h1><p>You don't have permission to access this resource.</p></body></html>");
-		addHeader("Content-Type", "text/html");
-		std::string index_path = path + "/index.html";
+		std::string index = path + "/index.html";
 		struct stat index_stat;
-		if (stat(index_path.c_str(), &index_stat) == 0 )
-			loadFile(index_path); // Try to load index.html if it exists
+		if (stat(index.c_str(), &index_stat) == 0 && S_ISREG(index_stat.st_mode))
+			return loadFile(index);
+		setStatusCode(200);
+		setBody(generateAutoIndex(path));
+		addHeader("Content-Type", "text/html");
 		return;
 	}
 	// It's a regular file, try to read it
