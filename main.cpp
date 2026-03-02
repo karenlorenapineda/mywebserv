@@ -6,7 +6,7 @@
 /*   By: kpineda- <kpineda-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 19:24:44 by kpineda-          #+#    #+#             */
-/*   Updated: 2026/02/24 20:32:28 by kpineda-         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:30:50 by kpineda-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <iostream>
 
 int main() {
-    // 1. Inicializamos los mensajes (esto lo harías una vez al arrancar el servidor)
-    HttpResponse::initializeStatusMessages();
 
     std::cout << "--- PRUEBA 1: Respuesta 200 OK ---" << std::endl;
     HttpResponse res200;
@@ -69,6 +67,12 @@ int main() {
     res.setStatusCode(403);
     res.setBody("Acceso denegado");
     std::cout << res.toString() << std::endl;
+
+    std::cout << "--- PRUEBA 8: Probando Directorio ---" << std::endl;
+    HttpResponse resDir;
+    // Asegúrate de que la carpeta "test_folder" existe en tu terminal (mkdir test_folder)
+    resDir.loadFile("test_folder"); 
+    std::cout << resDir.toString() << std::endl; 
 
     return 0;
 }
